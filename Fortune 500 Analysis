@@ -1,0 +1,37 @@
+- Which company in the Technology industry has the most revenue, and what's their revenue? 
+SELECT company_name, max(revenue)
+FROM fortune_companies
+WHERE industry = 'Technology'
+;
+
+- Which companies have at least 10 paid time off days *and* are offered at least 10 maternity leave weeks?
+SELECT company_name
+FROM fortune_companies
+WHERE paid_time_off_days>10
+AND maternity_leave_weeks>10
+;
+
+- Which industries have an average revenue of at least $100 Billion, and what are their avg revenues?
+SELECT industry, ROUND(AVG(revenue),1) as avg_revenue_billions
+FROM fortune_companies
+GROUP BY industry 
+HAVING avg_revenue_billions>=100 
+ORDER BY avg_revenue_billions desc
+;
+
+- Assign all the companies in the retail industry as "acceptable" or "abysmal" based on the healthcare_benefits offered.
+SELECT
+company_name,
+CASE 
+  WHEN healthcare_benefits >= 1 THEN 'healthcare friendly place'
+  ELSE 'abysmal'
+END as healthcare_benefits_friendliness
+FROM fortune_companies
+WHERE industry='Retail'
+;
+
+Which company in the Healthcare industry has the highest avg_employee_tenure? 
+SELECT company_name, max(avg_employee_tenure)
+FROM fortune_companies
+WHERE industry = 'Healthcare'
+;
